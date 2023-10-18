@@ -36,12 +36,6 @@ void Brute_force::perform_brute_force() {
         }
 
     } while (std::next_permutation(permutations.begin(), permutations.end()));
-
-    std::cout << this-> lowest_cost << "\n";
-    for (int i : lowest_path) {
-        std::cout << i << " ";
-    }
-
 }
 
 void Brute_force::showPath() {

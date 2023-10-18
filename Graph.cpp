@@ -18,7 +18,6 @@ bool Graph::readGraph(std::string fileName) {
     if (!file)
     {
         std::cout << "Error: Unable to open a file\n";
-        system("pause");
     }
     else
     {
@@ -38,8 +37,7 @@ bool Graph::readGraph(std::string fileName) {
         }
         else
         {
-            std::cout << "Error: Amount of towns given incorrectly\n";
-            system("pause");
+            std::cout << "Error: Amount of vertices given incorrectly\n";
             return false;
         }
     }
