@@ -10,7 +10,7 @@ class DataGenerator {
 
 
 public:
-    void generateData(int min, int max, int amount);
+    void generateData(int min, int max, int cities);
 
 };
 
