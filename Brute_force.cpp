@@ -8,18 +8,14 @@ Brute_force::Brute_force(std::vector<std::vector<int>> graph_matrix) {
     this->graph = graph_matrix;
     this->num_of_vertices = graph_matrix.size();
     this->lowest_cost = INT_MAX;
+    this->current_cost = 0;
 
+    this->lowest_path = std::vector<int>(this->num_of_vertices,0);
+    prepare_permutations();
 }
 
 // Wykonuje przeglad zupelny
 void Brute_force::perform_brute_force() {
-    this->lowest_path = std::vector<int>(this->num_of_vertices,0);
-    std::vector<int>permutations(this->num_of_vertices - 1, 0);
-    int current_cost = 0;
-
-    for (int i = 0; i < num_of_vertices - 1; ++i) {
-        permutations[i] = i;
-    }
 
     do {
         current_cost = 0;
@@ -52,6 +48,13 @@ void Brute_force::show_lowest_path() {
         }
         std::cout << "0\n";
         std::cout << "Cost = " << lowest_cost << "\n";
+    }
+}
+
+void Brute_force::prepare_permutations() {
+
+    for (int i = 0; i < num_of_vertices - 1; ++i) {
+        permutations.push_back(i);
     }
 }
 

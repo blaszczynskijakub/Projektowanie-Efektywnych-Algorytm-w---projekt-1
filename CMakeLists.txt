@@ -9,4 +9,6 @@ add_executable(pea_projekt_1 main.cpp FileReader.cpp OptionMenu.cpp OptionMenu.h
         Graph.h
         Graph.cpp
         Brute_force.h
-        Brute_force.cpp)
+        Brute_force.cpp
+        Time_measure.h
+        Time_measure.cpp)

@@ -11,11 +11,14 @@ public:
     void show_lowest_path();
 
 private:
+    int current_cost;
     int lowest_cost;
     int num_of_vertices;
     std::vector<int> lowest_path;
     std::vector<std::vector<int>> graph;
+    std::vector<int>permutations;
 
+    void prepare_permutations();
 };
 
 #endif //PEA_PROJEKT_1_BRUTE_FORCE_H
