@@ -8,7 +8,7 @@ class Brute_force {
 public:
     Brute_force(std::vector<std::vector<int>> graph_matrix);
     void perform_brute_force();
-    void showPath();
+    void show_lowest_path();
 
 private:
     int lowest_cost;

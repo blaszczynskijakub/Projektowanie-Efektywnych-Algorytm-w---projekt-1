@@ -1,7 +1,3 @@
-//
-// Created by 1312 on 10/18/2023.
-//
-
 #ifndef PEA_PROJEKT_1_GRAPH_H
 #define PEA_PROJEKT_1_GRAPH_H
 

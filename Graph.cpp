@@ -8,10 +8,9 @@ Graph::Graph(std::vector<std::vector<int>> graph) {
     this->num_of_vertices = graph_matrix.size();
 }
 
-Graph::~Graph() {
+Graph::~Graph() = default;
 
-}
-
+// Wczytuje graf z pliku
 bool Graph::readGraph(std::string fileName) {
 
     std::ifstream file(fileName);
@@ -45,11 +44,13 @@ bool Graph::readGraph(std::string fileName) {
     return true;
 }
 
+// Aktulizuje graf
 void Graph::setGraph(std::vector<std::vector<int>> new_graph) {
     this->graph_matrix = new_graph;
     this->num_of_vertices = graph_matrix.size();
 }
 
+// Metoda odpowiedzialna za przedzstawienie grafu w konsoli
 void Graph::printGraph() {
 
     if (!graph_matrix.empty())
@@ -66,6 +67,7 @@ void Graph::printGraph() {
 
 }
 
+// Zwraca graf
 std::vector<std::vector<int>> Graph::getGraph() {
     return this->graph_matrix;
 }
