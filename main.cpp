@@ -1,10 +1,17 @@
 #include <iostream>
 #include "Graph.h"
 #include "Brute_force.h"
-
-
-
+#include "DataGenerator.h"
+int MIN = 1;
+int MAX=999;
+int CITIES=10;
 int main() {
+
+    //generating file
+    DataGenerator dataGenerator;
+    dataGenerator.generateData(MIN,MAX,CITIES);
+
+
 
     std::vector<std::vector<int>> x;
 
