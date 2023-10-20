@@ -20,7 +20,7 @@ int main() {
     graph.printGraph();
     Brute_force force(graph.getGraph());
     force.perform_brute_force();
-    force.showPath();
+    force.show_lowest_path();
 
     return 0;
 }
