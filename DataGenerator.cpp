@@ -17,7 +17,7 @@ void DataGenerator::generateData(int min, int max, int cities) {
     random_device rd; // non-deterministic generator
     mt19937 gen(rd()); // random engine seeded with rd()
     uniform_int_distribution<> dist(min, max);
-    ofstream outfile("../data.txt");
+    ofstream outfile("../data13.txt");
 
 
     if (outfile.is_open()) { // Check if the file is opened successfully

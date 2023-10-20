@@ -11,7 +11,7 @@ Time_measure::Time_measure(int num_of_tests) {
     this->num_of_tests = num_of_tests;
 }
 
-long long Time_measure::test_brute_force(int matrix_size) {
+long long Time_measure::test_brute_force_random_matrices(int matrix_size) {
     long long sum = 0;
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -40,6 +40,28 @@ long long Time_measure::test_brute_force(int matrix_size) {
     long long averageTime = sum / num_of_tests;
     std::cout << "Average time taken to perform brute force " << averageTime << " microseconds.\n" << num_of_tests << " test done\n";
     return averageTime;
+}
+
+long long Time_measure::test_brute_force(std::vector<std::vector<int>> matrix) {
+    long long sum = 0;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> random(1, 200);
+    Brute_force brute_test(matrix);
+
+    for (int t = 0; t < num_of_tests; t++) {
+
+        auto start = std::chrono::high_resolution_clock::now();
+        brute_test.perform_brute_force();
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+        //std::cout << "Time taken by function: " << duration.count() << " microseconds" << std::endl;
+        sum += duration.count();
+
+    }
+    //long long averageTime = sum / num_of_tests;
+    //std::cout << "Average time taken to perform brute force " << averageTime << " microseconds.\n" << num_of_tests << " test done\n";
+    return sum;
 }
 
 

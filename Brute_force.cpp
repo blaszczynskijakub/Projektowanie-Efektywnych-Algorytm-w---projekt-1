@@ -58,4 +58,20 @@ void Brute_force::prepare_permutations() {
     }
 }
 
+int Brute_force::get_lowest_cost() {
+    return this->lowest_cost;
+}
+
+std::string Brute_force::get_lowest_path() {
+
+    std::string lowest_path_s = "0 -> ";
+    for (int i = 0; i < this->num_of_vertices - 1; i++)
+    {
+        lowest_path_s +=  std::to_string((lowest_path[i] + 1))+ " -> ";
+    }
+    lowest_path_s += "0";
+
+    return lowest_path_s;
+}
+
 
