@@ -63,6 +63,8 @@ void Graph::printGraph() {
             }
             std::cout << "\n";
         }
+    } else {
+        std::cout << "Graph is empty!\n";
     }
 
 }

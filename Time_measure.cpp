@@ -55,7 +55,7 @@ long long Time_measure::test_brute_force(std::vector<std::vector<int>> matrix) {
         brute_test.perform_brute_force();
         auto end = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-        //std::cout << "Time taken by function: " << duration.count() << " microseconds" << std::endl;
+        //std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
         sum += duration.count();
 
     }
