@@ -16,7 +16,7 @@ bool Graph::readGraph(std::string fileName) {
     std::ifstream file(fileName);
     if (!file)
     {
-        std::cout << "Error: Unable to open a file\n";
+        std::cout << "Error: Unable to open a file\n"; // po polsk
     }
     else
     {

@@ -1,6 +1,7 @@
 #include "Menu.h"
 
 void Menu::show_menu() {
+    using namespace std;
     std::vector<std::vector<int>> init_vector;
     DataGenerator generator;
     Graph graph(init_vector);
@@ -9,7 +10,7 @@ void Menu::show_menu() {
     std::string choice_s;
 
     while (true) {
-        std::cout << "Problem komiwojazera rozwiazywany metoda przegladu zupelnego.\nAutor: Michal Lewandowski #264458\n\n";
+        std::cout << "Problem komiwojazera rozwiazywany metoda przegladu zupelnego.\nAutor: Jakub Blaszczynski #263966\n\n";
         std::cout << "0 - Wyjdz z programu\n";
         std::cout << "1 - Wczytaj macierz z pliku\n";
         std::cout << "2 - Wygeneruj macierz\n";
@@ -49,13 +50,23 @@ void Menu::show_menu() {
                 break;
             case 4:
                 {
+                    if(!graph.getGraph().empty())
+                    {
+                        cout<<1111;
+
                     Brute_force bf(graph.getGraph());
                     auto start = std::chrono::high_resolution_clock::now();
+
                     bf.perform_brute_force();
                     auto end = std::chrono::high_resolution_clock::now();
                     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
                     std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
                     bf.show_lowest_path();
+
+                } else
+                    {
+                        cout<<"BRAK ostatnio wczytanej lub wygenerowanej macierzy!"<<endl;
+                    }
                 }
 
                 break;
