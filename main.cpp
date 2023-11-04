@@ -4,6 +4,7 @@
 #include "DataGenerator.h"
 #include "Time_measure.h"
 #include "Write_to_csv.h"
+#include "Menu.h"
 
 int MIN = 1;
 int MAX = 200;
@@ -21,7 +22,8 @@ std::string lowest_path;
 std::vector<std::string> results;
 
 int main() {
-
+    Menu menu;
+    menu.show_menu();
     //generating file
     //DataGenerator dataGenerator;
     //dataGenerator.generateData(MIN,MAX,CITIES);

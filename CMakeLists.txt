@@ -13,4 +13,4 @@ add_executable(pea_projekt_1 main.cpp FileReader.cpp OptionMenu.cpp OptionMenu.h
         Time_measure.h
         Time_measure.cpp
         Write_to_csv.h
-        Write_to_csv.cpp)
+        Write_to_csv.cpp Menu.cpp)
