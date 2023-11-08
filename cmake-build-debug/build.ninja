@@ -109,6 +109,18 @@ build CMakeFiles/pea_projekt_1.dir/Menu.cpp.obj: CXX_COMPILER__pea_projekt_1_Deb
   OBJECT_DIR = CMakeFiles\pea_projekt_1.dir
   OBJECT_FILE_DIR = CMakeFiles\pea_projekt_1.dir
 
+build CMakeFiles/pea_projekt_1.dir/Dynamic_programming.cpp.obj: CXX_COMPILER__pea_projekt_1_Debug C$:/Users/Jakub/CLionProjects/pea_projekt_1/Dynamic_programming.cpp || cmake_object_order_depends_target_pea_projekt_1
+  DEP_FILE = CMakeFiles\pea_projekt_1.dir\Dynamic_programming.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\pea_projekt_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\pea_projekt_1.dir
+
+build CMakeFiles/pea_projekt_1.dir/BnB.cpp.obj: CXX_COMPILER__pea_projekt_1_Debug C$:/Users/Jakub/CLionProjects/pea_projekt_1/BnB.cpp || cmake_object_order_depends_target_pea_projekt_1
+  DEP_FILE = CMakeFiles\pea_projekt_1.dir\BnB.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\pea_projekt_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\pea_projekt_1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pea_projekt_1
@@ -117,7 +129,7 @@ build CMakeFiles/pea_projekt_1.dir/Menu.cpp.obj: CXX_COMPILER__pea_projekt_1_Deb
 #############################################
 # Link the executable pea_projekt_1.exe
 
-build pea_projekt_1.exe: CXX_EXECUTABLE_LINKER__pea_projekt_1_Debug CMakeFiles/pea_projekt_1.dir/main.cpp.obj CMakeFiles/pea_projekt_1.dir/FileReader.cpp.obj CMakeFiles/pea_projekt_1.dir/OptionMenu.cpp.obj CMakeFiles/pea_projekt_1.dir/DataGenerator.cpp.obj CMakeFiles/pea_projekt_1.dir/Data_parser.cpp.obj CMakeFiles/pea_projekt_1.dir/Graph.cpp.obj CMakeFiles/pea_projekt_1.dir/Brute_force.cpp.obj CMakeFiles/pea_projekt_1.dir/Time_measure.cpp.obj CMakeFiles/pea_projekt_1.dir/Write_to_csv.cpp.obj CMakeFiles/pea_projekt_1.dir/Menu.cpp.obj
+build pea_projekt_1.exe: CXX_EXECUTABLE_LINKER__pea_projekt_1_Debug CMakeFiles/pea_projekt_1.dir/main.cpp.obj CMakeFiles/pea_projekt_1.dir/FileReader.cpp.obj CMakeFiles/pea_projekt_1.dir/OptionMenu.cpp.obj CMakeFiles/pea_projekt_1.dir/DataGenerator.cpp.obj CMakeFiles/pea_projekt_1.dir/Data_parser.cpp.obj CMakeFiles/pea_projekt_1.dir/Graph.cpp.obj CMakeFiles/pea_projekt_1.dir/Brute_force.cpp.obj CMakeFiles/pea_projekt_1.dir/Time_measure.cpp.obj CMakeFiles/pea_projekt_1.dir/Write_to_csv.cpp.obj CMakeFiles/pea_projekt_1.dir/Menu.cpp.obj CMakeFiles/pea_projekt_1.dir/Dynamic_programming.cpp.obj CMakeFiles/pea_projekt_1.dir/BnB.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\pea_projekt_1.dir

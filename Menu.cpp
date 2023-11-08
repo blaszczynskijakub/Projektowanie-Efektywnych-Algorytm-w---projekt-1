@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "BnB.h"
 
 void Menu::show_menu() {
     using namespace std;
@@ -16,6 +17,8 @@ void Menu::show_menu() {
         std::cout << "2 - Wygeneruj macierz\n";
         std::cout << "3 - Wyswietl ostatnio wczytana z pliku lub wygenerowana macierz\n";
         std::cout << "4 - Uruchom przeglad zupleny dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
+        std::cout << "5 - Uruchom bnb dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
+
         std::cout << ">";
 
         std::cin >> choice_s;
@@ -36,7 +39,7 @@ void Menu::show_menu() {
 
                 break;
             case 2:
-                std::cout << "Podaj wielkosc macierzy (rozmiar N)\n>";
+                std::cout << "Podaj wielkosc macierzy (rozmiar MAX_CITIES)\n>";
                 std::cin >> choice_s;
                 while (!is_digit(choice_s)) {
                     std::cout << "Podany ciag znakow nie jest liczba!\nWpisz liczbe\n>";
@@ -68,6 +71,20 @@ void Menu::show_menu() {
                         cout<<"BRAK ostatnio wczytanej lub wygenerowanej macierzy!"<<endl;
                     }
                 }
+
+                break;
+            case 5:
+            {
+                int adj[20][20] = { {0, 10, 15, 20},
+                                  {10, 0, 35, 25},
+                                  {15, 35, 0, 30},
+                                  {20, 25, 30, 0}
+                };
+                //table must be 20x20(MAX_CITIES), first number informs of real nr o cities in task
+                BnB bnb(5,adj );
+                bnb.TSP(adj);
+            }
+
 
                 break;
             default:

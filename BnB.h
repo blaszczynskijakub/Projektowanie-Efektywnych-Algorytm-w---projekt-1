@@ -1,29 +1,22 @@
-#ifndef PEA_PROJEKT_1_BnB_H
-#define PEA_PROJEKT_1_BnB_H
+#ifndef BNB_H
+#define BNB_H
 
-#include <vector>
-#include <string>
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <climits>
+const int MAX_CITIES=20;
 
 class BnB {
 
 public:
-    BnB(std::vector<std::vector<int>> graph_matrix);
-    int perform_upper_bound();
-    int perform_lower_bound();
+    BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]);
+    void TSP(int matrix[MAX_CITIES][MAX_CITIES]);
 
 private:
-    std::vector<std::vector<int>> graph;
-    std::vector<int> vetexes;
-    std::vector<int> upper_bound_path;
-    std::vector<std::vector<int>> minimal_spanning_tree;
-    int upper_bound_value;
-    int lower_bound_value;
-    void available_vertexes();
-    int greedy_method(int row, std::vector<int> visited_vertexes);
+    bool visited[MAX_CITIES];
+    int final_res;
+    int finalNodes[MAX_CITIES + 1];
+    void copyTab(int curr_path[]);
+    int firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i);
+    int secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i);
+    void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight, int level, int curr_path[]);
 };
 
-#endif //PEA_PROJEKT_1_BnB_H
+#endif //BNB_H

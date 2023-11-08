@@ -1,97 +1,181 @@
+
+#include <climits>
+#include <cstring>
+#include <iostream>
 #include "BnB.h"
 
-BnB::BnB(std::vector<std::vector<int>> graph_matrix) {
+using namespace std;
 
-    this->graph = graph_matrix;
-    available_vertexes();
-    upper_bound_path.push_back(0);
-    upper_bound_value = perform_upper_bound();
-    lower_bound_value = perform_lower_bound();
+int cities;
 
-    std::cout << "lower bound: " << lower_bound_value << "\n";
-    std::cout << "upper bound: " << upper_bound_value << "\n";
+//number of cities
 
+
+
+// visited[] controls visted nodes
+bool visited[MAX_CITIES];
+
+// Stores the final result - value of shortest path
+int final_res = INT_MAX;
+
+// finalNodes[] - final solution
+int finalNodes[MAX_CITIES + 1];
+
+// Function to copy temporary solution to
+// the final solution
+void copyTab(int curr_path[]) {
+    for (int i = 0; i < cities; i++)
+        finalNodes[i] = curr_path[i];
+    finalNodes[cities] = curr_path[0];
 }
 
-int BnB::perform_upper_bound() {
-
-    upper_bound_value = greedy_method(0,vetexes);
-    return upper_bound_value;
+// Function to find the minimum edge cost from the vertex i
+int firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
+    int min = INT_MAX;
+    for (int k = 0; k < cities; k++)
+        if (matrix[i][k] < min && i != k)
+            min = matrix[i][k];
+    return min;
 }
 
-int BnB::greedy_method(int row, std::vector<int> unvisited_vertexes) {
+// Function to find the second minimum edge cost from the vertex i
 
-    if (unvisited_vertexes.size() == 1) {
-        upper_bound_path.push_back(0);
-        return graph[row][0];
+int secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
+    int first = INT_MAX, second = INT_MAX;
+    for (int j = 0; j < cities; j++) {
+        if (i == j)
+            continue;
+
+        if (matrix[i][j] <= first) {
+            second = first;
+            first = matrix[i][j];
+        } else if (matrix[i][j] <= second &&
+                   matrix[i][j] != first)
+            second = matrix[i][j];
     }
-    int lowest_cost = INT_MAX;
-    int index;
-    for (int i = 0; i < graph.size(); i++) {
-        if ((lowest_cost > graph[row][i]) && row != i) {
-            auto it = std::find(unvisited_vertexes.begin(), unvisited_vertexes.end(), i);
-            if (it != unvisited_vertexes.end()) {
-                lowest_cost = graph[row][i];
-                index = i;
-            }
-
-        }
-    }
-    upper_bound_path.push_back(index);
-    unvisited_vertexes.erase(std::remove(unvisited_vertexes.begin(), unvisited_vertexes.end(), row), unvisited_vertexes.end());
-    lowest_cost += greedy_method(index, unvisited_vertexes);
-    return lowest_cost;
+    return second;
 }
 
-void BnB::available_vertexes() {
+// function that takes as arguments:
+// curr_bound -> lower bound of the root node
+// curr_weight-> stores the weight of the path so far
+// level-> current level while moving in the search
+//		 space tree
+// curr_path[] -> where the solution is being stored which
+//			 would later be copied to finalNodes[]
+void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
+            int level, int curr_path[]) {
+    // base case is when we have reached level MAX_CITIES which
+    // means we have covered all the nodes once
+    if (level == cities) {
+        // check if there is an edge from last vertex in
+        // path back to the first vertex
+        if (matrix[curr_path[level - 1]][curr_path[0]] != 0) {
+            // curr_res has the total weight of the
+            // solution we got
+            int curr_res = curr_weight +
+                           matrix[curr_path[level - 1]][curr_path[0]];
 
-    for (int i = 0; i < graph.size(); i++) {
-        vetexes.push_back(i);
-    }
-
-}
-
-int BnB::perform_lower_bound() {
-
-    int n = graph.size();
-    std::vector<std::vector<int>> mst(n, std::vector<int>(n, 0)); // Initialize MST matrix with zeros
-    std::vector<int> key(n, INT_MAX); // Key values used to pick minimum weight edge in cut
-    std::vector<bool> inMST(n, false); // To represent set of vertices included in MST
-
-    // Start with the first node
-    key[1] = 0;
-    int mstCost = 0; // Total cost of MST
-
-    // Construct MST with (n-1) edges
-    for (int count = 0; count < n; ++count) {
-        // Find the minimum key vertex from the set of vertices not yet included in MST
-        int u = -1;
-
-        for (int i = 0; i < n; ++i) {
-            if (!inMST[i] && (u == -1 || key[i] < key[u])) {
-                u = i;
-            }
-        }
-
-        // Include the picked vertex in MST
-        inMST[u] = true;
-        if (key[u] != 0) {
-            mstCost += key[u];
-        }
-        // Add the key value to MST cost
-
-        // Update key values according to the chosen vertex
-        for (int v = 0; v < n; ++v) {
-            if (graph[u][v] != 0 && !inMST[v] && graph[u][v] < key[v]) {
-                key[v] = graph[u][v];
-                mst[u][v] = graph[u][v];
-                mst[v][u] = graph[v][u];
+            // Update final result and final path if
+            // current result is better.
+            if (curr_res < final_res) {
+                copyTab(curr_path);
+                final_res = curr_res;
             }
         }
+        return;
     }
-    minimal_spanning_tree = mst;
-    return mstCost;
 
+    // for any other level iterate for all vertices to
+    // build the search space tree recursively
+    for (int i = 0; i < cities; i++) {
+        // Consider next vertex if it is not same (diagonal
+        // entry in adjacency matrix and not visited
+        // already)
+        if (matrix[curr_path[level - 1]][i] != 0 &&
+            visited[i] == false) {
+            int temp = curr_bound;
+            curr_weight += matrix[curr_path[level - 1]][i];
+
+            // different computation of curr_bound for
+            // level 2 from the other levels
+            if (level == 1)
+                curr_bound -= ((firstMin(matrix, curr_path[level - 1]) +
+                                firstMin(matrix, i)) / 2);
+            else
+                curr_bound -= ((secondMin(matrix, curr_path[level - 1]) +
+                                firstMin(matrix, i)) / 2);
+
+            // curr_bound + curr_weight is the actual lower bound
+            // for the node that we have arrived on
+            // If current lower bound < final_res, we need to explore
+            // the node further
+            if (curr_bound + curr_weight < final_res) {
+                curr_path[level] = i;
+                visited[i] = true;
+
+                // call TSPRec for the next level
+                TSPRec(matrix, curr_bound, curr_weight, level + 1,
+                       curr_path);
+            }
+
+            // Else we have to prune the node by resetting
+            // all changes to curr_weight and curr_bound
+            curr_weight -= matrix[curr_path[level - 1]][i];
+            curr_bound = temp;
+
+            // Also reset the visited array
+            memset(visited, false, sizeof(visited));
+            for (int j = 0; j <= level - 1; j++)
+                visited[curr_path[j]] = true;
+        }
+    }
+}
+
+// This function sets up finalNodes[]
+void TSP(int matrix[MAX_CITIES][MAX_CITIES]) {
+    int curr_path[MAX_CITIES + 1];
+
+    // Calculate initial lower bound for the root node
+    // using the formula 1/2 * (sum of first min +
+    // second min) for all edges.
+    // Also initialize the curr_path and visited array
+    int curr_bound = 0;
+    memset(curr_path, -1, sizeof(curr_path));
+    memset(visited, 0, sizeof(curr_path));
+
+    // Compute initial bound
+    for (int i = 0; i < MAX_CITIES; i++)
+        curr_bound += (firstMin(matrix, i) +
+                       secondMin(matrix, i));
+
+    // Rounding off the lower bound to an integer
+    curr_bound = (curr_bound & 1) ? curr_bound / 2 + 1 :
+                 curr_bound / 2;
+
+    // We start at vertex 1 so the first vertex
+    // in curr_path[] is 0
+    visited[0] = true;
+    curr_path[0] = 0;
+
+    // getting first level node
+    TSPRec(matrix, curr_bound, 0, 1, curr_path);
+    cout<<final_res;
 }
 
 
+
+BnB::BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]) {
+    while (1)
+    {
+        if(inputCitiesAmount<3){
+            cout<<"To nie jest problem TSP. Podaj prawidlowa liczbe miast";
+            cin>>inputCitiesAmount;
+
+
+        } else {
+            cities = inputCitiesAmount;
+            break;
+        }
+    }
+}
