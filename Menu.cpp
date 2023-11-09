@@ -81,8 +81,8 @@ void Menu::show_menu() {
                                   {20, 25, 30, 0}
                 };
                 //table must be 20x20(MAX_CITIES), first number informs of real nr o cities in task
-                BnB bnb(5,adj );
-                bnb.TSP(adj);
+                BnB bnb(4,adj );
+                bnb.TSP();
             }
 
 

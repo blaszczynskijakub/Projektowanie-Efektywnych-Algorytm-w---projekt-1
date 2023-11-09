@@ -1,4 +1,3 @@
-
 #include <climits>
 #include <cstring>
 #include <iostream>
@@ -6,31 +5,24 @@
 
 using namespace std;
 
-int cities;
+
 
 //number of cities
 
 
 
-// visited[] controls visted nodes
-bool visited[MAX_CITIES];
 
-// Stores the final result - value of shortest path
-int final_res = INT_MAX;
-
-// finalNodes[] - final solution
-int finalNodes[MAX_CITIES + 1];
 
 // Function to copy temporary solution to
 // the final solution
-void copyTab(int curr_path[]) {
+void BnB:: copyTab(int curr_path[]) {
     for (int i = 0; i < cities; i++)
-        finalNodes[i] = curr_path[i];
-    finalNodes[cities] = curr_path[0];
+        this->finalNodes[i] = curr_path[i];
+    this->finalNodes[cities] = curr_path[0];
 }
 
 // Function to find the minimum edge cost from the vertex i
-int firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
+int BnB::  firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
     int min = INT_MAX;
     for (int k = 0; k < cities; k++)
         if (matrix[i][k] < min && i != k)
@@ -40,7 +32,7 @@ int firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
 
 // Function to find the second minimum edge cost from the vertex i
 
-int secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
+int BnB:: secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
     int first = INT_MAX, second = INT_MAX;
     for (int j = 0; j < cities; j++) {
         if (i == j)
@@ -63,10 +55,11 @@ int secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
 //		 space tree
 // curr_path[] -> where the solution is being stored which
 //			 would later be copied to finalNodes[]
-void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
+void BnB:: TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
             int level, int curr_path[]) {
     // base case is when we have reached level MAX_CITIES which
     // means we have covered all the nodes once
+
     if (level == cities) {
         // check if there is an edge from last vertex in
         // path back to the first vertex
@@ -78,9 +71,9 @@ void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
 
             // Update final result and final path if
             // current result is better.
-            if (curr_res < final_res) {
+            if (curr_res < this->final_res) {
                 copyTab(curr_path);
-                final_res = curr_res;
+                this->final_res = curr_res;
             }
         }
         return;
@@ -110,7 +103,7 @@ void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
             // for the node that we have arrived on
             // If current lower bound < final_res, we need to explore
             // the node further
-            if (curr_bound + curr_weight < final_res) {
+            if (curr_bound + curr_weight < this->final_res) {
                 curr_path[level] = i;
                 visited[i] = true;
 
@@ -133,7 +126,7 @@ void TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
 }
 
 // This function sets up finalNodes[]
-void TSP(int matrix[MAX_CITIES][MAX_CITIES]) {
+void BnB:: TSP() {
     int curr_path[MAX_CITIES + 1];
 
     // Calculate initial lower bound for the root node
@@ -160,7 +153,7 @@ void TSP(int matrix[MAX_CITIES][MAX_CITIES]) {
 
     // getting first level node
     TSPRec(matrix, curr_bound, 0, 1, curr_path);
-    cout<<final_res;
+    cout<<"::"<<this->final_res;
 }
 
 
@@ -175,6 +168,13 @@ BnB::BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]) {
 
         } else {
             cities = inputCitiesAmount;
+            for(int i=0;i<cities;i++)
+            {
+                for(int j=0;j<cities;j++)
+                {
+                    matrix[i][j]=inputMatrix[i][j];
+                }
+            }
             break;
         }
     }
