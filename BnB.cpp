@@ -154,6 +154,10 @@ void BnB:: TSP() {
     // getting first level node
     TSPRec(matrix, curr_bound, 0, 1, curr_path);
     cout<<"::"<<this->final_res;
+    for(int i=0;i<cities+1;i++)
+    {
+        cout<<finalNodes[i]<<" ";
+    }
 }
 
 
