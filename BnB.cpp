@@ -1,6 +1,7 @@
 #include <climits>
 #include <cstring>
 #include <iostream>
+#include <vector>
 #include "BnB.h"
 
 using namespace std;
@@ -153,16 +154,12 @@ void BnB:: TSP() {
 
     // getting first level node
     TSPRec(matrix, curr_bound, 0, 1, curr_path);
-    cout<<"::"<<this->final_res;
-    for(int i=0;i<cities+1;i++)
-    {
-        cout<<finalNodes[i]<<" ";
-    }
+
 }
 
 
 
-BnB::BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]) {
+BnB::BnB(int inputCitiesAmount, std::vector<std::vector<int>> inputMatrix) {
     while (1)
     {
         if(inputCitiesAmount<3){
@@ -182,4 +179,12 @@ BnB::BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]) {
             break;
         }
     }
+}
+
+void BnB::getResults() {
+    cout << "koszt: " << final_res << endl << "sciezka: ";
+    for (int i = 0; i < cities + 1; i++) {
+        cout << finalNodes[i] << " ";
+    }
+    cout << endl;
 }

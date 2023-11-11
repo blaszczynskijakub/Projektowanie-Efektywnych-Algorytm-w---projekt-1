@@ -14,6 +14,8 @@ public:
     void printGraph();
     std::vector<std::vector<int>> getGraph();
 
+    int getNumOfVertices() const;
+
 private:
     std::vector<std::vector<int>> graph_matrix;
     int num_of_vertices;

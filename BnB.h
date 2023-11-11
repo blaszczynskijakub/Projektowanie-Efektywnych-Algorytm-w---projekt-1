@@ -6,7 +6,7 @@ const int MAX_CITIES = 20;
 class BnB {
 public:
     int matrix[MAX_CITIES][MAX_CITIES];
-    BnB(int inputCitiesAmount, int inputMatrix[MAX_CITIES][MAX_CITIES]);
+    BnB(int inputCitiesAmount, std::vector<std::vector<int>> inputMatrix);
     void TSP();
     // Stores the final result - value of the shortest path
     int final_res = INT_MAX;
@@ -15,6 +15,8 @@ public:
     // finalNodes[] - final solution
     int finalNodes[MAX_CITIES + 1];
     int cities;
+
+    void getResults();
 
 private:
     void copyTab(int curr_path[]);

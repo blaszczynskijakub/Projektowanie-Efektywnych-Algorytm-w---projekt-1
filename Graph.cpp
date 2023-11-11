@@ -44,6 +44,10 @@ bool Graph::readGraph(std::string fileName) {
     return true;
 }
 
+int Graph::getNumOfVertices() const {
+    return num_of_vertices;
+}
+
 // Aktulizuje graf
 void Graph::setGraph(std::vector<std::vector<int>> new_graph) {
     this->graph_matrix = new_graph;

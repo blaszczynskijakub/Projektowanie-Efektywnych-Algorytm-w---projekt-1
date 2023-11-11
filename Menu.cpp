@@ -11,12 +11,14 @@ void Menu::show_menu() {
     std::string choice_s;
 
     while (true) {
-        std::cout << "Problem komiwojazera rozwiazywany metoda przegladu zupelnego.\nAutor: Jakub Blaszczynski #263966\n\n";
+        std::cout
+                << "Problem komiwojazera rozwiazywany metoda przegladu zupelnego, Bnb, DP.\nAutor: Jakub Blaszczynski #263966\n\n";
         std::cout << "0 - Wyjdz z programu\n";
         std::cout << "1 - Wczytaj macierz z pliku\n";
         std::cout << "2 - Wygeneruj macierz\n";
         std::cout << "3 - Wyswietl ostatnio wczytana z pliku lub wygenerowana macierz\n";
-        std::cout << "4 - Uruchom przeglad zupleny dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
+        std::cout
+                << "4 - Uruchom przeglad zupleny dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
         std::cout << "5 - Uruchom bnb dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
 
         std::cout << ">";
@@ -51,11 +53,9 @@ void Menu::show_menu() {
 
                 graph.printGraph();
                 break;
-            case 4:
-                {
-                    if(!graph.getGraph().empty())
-                    {
-                        cout<<1111;
+            case 4: {
+                if (!graph.getGraph().empty()) {
+                    cout << 1111;
 
                     Brute_force bf(graph.getGraph());
                     auto start = std::chrono::high_resolution_clock::now();
@@ -66,23 +66,34 @@ void Menu::show_menu() {
                     std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
                     bf.show_lowest_path();
 
-                } else
-                    {
-                        cout<<"BRAK ostatnio wczytanej lub wygenerowanej macierzy!"<<endl;
-                    }
+                } else {
+                    cout << "BRAK ostatnio wczytanej lub wygenerowanej macierzy!" << endl;
                 }
+            }
 
                 break;
-            case 5:
-            {
-                int adj[20][20] = { {0, 10, 15, 20},
-                                  {10, 0, 35, 25},
-                                  {15, 35, 0, 30},
-                                  {20, 25, 30, 0}
-                };
-                //table must be 20x20(MAX_CITIES), first number informs of real nr o cities in task
-                BnB bnb(4,adj );
-                bnb.TSP();
+            case 5: {
+                if (!graph.getGraph().empty()) {
+
+
+                    BnB bnb(graph.getNumOfVertices(), graph.getGraph());
+                    auto start = std::chrono::high_resolution_clock::now();
+
+                    bnb.TSP();
+                    auto end = std::chrono::high_resolution_clock::now();
+                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                    std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
+
+                    bnb.getResults();
+
+
+
+
+
+
+                } else {
+                    cout << "BRAK ostatnio wczytanej lub wygenerowanej macierzy!" << endl;
+                }
             }
 
 
@@ -97,7 +108,7 @@ void Menu::show_menu() {
 
 bool Menu::is_digit(std::string input) {
 
-    for (int i = 0; i<input.size(); i++) {
+    for (int i = 0; i < input.size(); i++) {
         if (isdigit(input[i]) == false) {
             return false;
         }
