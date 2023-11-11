@@ -1,22 +1,38 @@
 #ifndef PEA_PROJEKT_1_DYNAMIC_PROGRAMMING_H
 #define PEA_PROJEKT_1_DYNAMIC_PROGRAMMING_H
 
-#include <vector>
 #include <string>
-#include <unordered_map>
+#include <vector>
 #include <iostream>
-#include <utility>
+#include <fstream>
+#include <algorithm>
+#include <iomanip>
 
 class Dynamic_programming {
 
 public:
+
     Dynamic_programming(std::vector<std::vector<int>> graph_matrix);
-    int perform_dp(int k, std::vector<int> unvisited, std::string current_path);
-    std::unordered_map<std::string, int> get_calulated_path_cost_map();
+
+    std::vector<int> dp();
+
+    int dp_recursion(int mask, int current_vertex);
+
+    std::vector<int> get_path();
 
 private:
-    std::vector<std::vector<int>> graph;
-    std::unordered_map<std::string, int> calculated_path_cost_map;
+
+    int instance_size;
+
+    std::vector<std::vector<int>> parents_memory;
+
+    std::vector<std::vector<int>> matrix;
+
+    int IMAX = INT_MAX;
+
+    int visited_all;
+
+    std::vector<std::vector<int>> dp_memory;
 
 };
 
