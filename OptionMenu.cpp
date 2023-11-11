@@ -4,20 +4,22 @@
 #include <iostream>
 
 #include "OptionMenu.h"
+
 using namespace std;
+
 void OptionMenu::show() {
 
-        char option;
-        do {
-            cout << endl;
-            cout << "==== MENU GLOWNE ===" << endl;
-            cout << "1.Tablica" << endl;
-            cout << "2.Lista" << endl;
-            cout << "3.Kopiec" << endl;
-            cout << "0.Wyjscie" << endl;
-            cout << "Podaj opcje:";
-            cin >> option;
-            cout << endl;
+    char option;
+    do {
+        cout << endl;
+        cout << "==== MENU GLOWNE ===" << endl;
+        cout << "1.Tablica" << endl;
+        cout << "2.Lista" << endl;
+        cout << "3.Kopiec" << endl;
+        cout << "0.Wyjscie" << endl;
+        cout << "Podaj opcje:";
+        cin >> option;
+        cout << endl;
 
 
 //            switch (option) {
@@ -34,7 +36,7 @@ void OptionMenu::show() {
 //                    break;
 //            }
 
-        } while (option != '0');
+    } while (option != '0');
 
 
 }

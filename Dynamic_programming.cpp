@@ -1,8 +1,7 @@
 #include "Dynamic_programming.h"
 
 
-Dynamic_programming::Dynamic_programming(std::vector<std::vector<int>> graph_matrix)
-{
+Dynamic_programming::Dynamic_programming(std::vector<std::vector<int>> graph_matrix) {
     this->matrix = graph_matrix;
     this->instance_size = matrix.size();
 
@@ -61,8 +60,7 @@ int Dynamic_programming::dp_recursion(int mask, int current_vertex) {
     return cost;
 }
 
-std::vector<int> Dynamic_programming::get_path()
-{
+std::vector<int> Dynamic_programming::get_path() {
     std::vector<int> best_route;
     int current_vertex = 0;
     int mask = 1;
@@ -72,7 +70,7 @@ std::vector<int> Dynamic_programming::get_path()
 
     while (mask != visited_all) {
         current_vertex = parents_memory[mask][current_vertex];
-        best_route.push_back(current_vertex+1);
+        best_route.push_back(current_vertex + 1);
         mask = mask | (1 << current_vertex);
     }
 

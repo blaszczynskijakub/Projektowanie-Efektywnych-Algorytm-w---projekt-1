@@ -6,7 +6,7 @@
 #include <iterator>
 
 
-Data_parser::Data_parser(std::string  filename) {
+Data_parser::Data_parser(std::string filename) {
 
     this->filename = std::move(filename);
 

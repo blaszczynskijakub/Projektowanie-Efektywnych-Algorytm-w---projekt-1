@@ -87,10 +87,6 @@ void Menu::show_menu() {
                     bnb.getResults();
 
 
-
-
-
-
                 } else {
                     cout << "BRAK ostatnio wczytanej lub wygenerowanej macierzy!" << endl;
                 }

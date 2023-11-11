@@ -14,28 +14,20 @@ Graph::~Graph() = default;
 bool Graph::readGraph(std::string fileName) {
 
     std::ifstream file(fileName);
-    if (!file)
-    {
+    if (!file) {
         std::cout << "Error: Unable to open a file\n"; // po polsk
-    }
-    else
-    {
+    } else {
         file >> this->num_of_vertices;
-        if (!file || this->num_of_vertices > 1)
-        {
+        if (!file || this->num_of_vertices > 1) {
             std::vector<std::vector<int>> temp(num_of_vertices, std::vector<int>(num_of_vertices, 0));
-            for (int i = 0; i < this->num_of_vertices; i++)
-            {
-                for (int j = 0; j < this->num_of_vertices; j++)
-                {
+            for (int i = 0; i < this->num_of_vertices; i++) {
+                for (int j = 0; j < this->num_of_vertices; j++) {
                     file >> temp[i][j];
                 }
             }
 
             graph_matrix = temp;
-        }
-        else
-        {
+        } else {
             std::cout << "Error: Amount of vertices given incorrectly\n";
             return false;
         }
@@ -57,12 +49,9 @@ void Graph::setGraph(std::vector<std::vector<int>> new_graph) {
 // Metoda odpowiedzialna za przedzstawienie grafu w konsoli
 void Graph::printGraph() {
 
-    if (!graph_matrix.empty())
-    {
-        for (int i = 0; i < this->num_of_vertices; i++)
-        {
-            for (int j = 0; j < this->num_of_vertices; j++)
-            {
+    if (!graph_matrix.empty()) {
+        for (int i = 0; i < this->num_of_vertices; i++) {
+            for (int j = 0; j < this->num_of_vertices; j++) {
                 std::cout << graph_matrix[i][j] << "\t";
             }
             std::cout << "\n";

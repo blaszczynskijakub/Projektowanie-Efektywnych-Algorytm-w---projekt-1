@@ -7,7 +7,7 @@
 
 
 class OptionMenu {
-   static void show();
+    static void show();
 };
 
 

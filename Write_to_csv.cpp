@@ -4,7 +4,8 @@
 #include <vector>
 #include "Write_to_csv.h"
 
-Write_to_csv::Write_to_csv(std::string graph_name, std::string path, int path_weight, long long int time, int number_of_repeats) {
+Write_to_csv::Write_to_csv(std::string graph_name, std::string path, int path_weight, long long int time,
+                           int number_of_repeats) {
 
     this->graph_name = graph_name;
     this->path = path;
@@ -22,8 +23,7 @@ void Write_to_csv::save_results(std::string results_file_name, std::vector<std::
     file_out.open(results_file_name, std::ios::out);
     if (file_out.is_open()) {
         file_out << "graph_name,path,path_weight,time,number_of_repeats\n";
-        for (int i = 0; i < results.size(); i++)
-        {
+        for (int i = 0; i < results.size(); i++) {
             file_out << results[i] << "\n";
         }
         file_out.close();
@@ -36,7 +36,8 @@ void Write_to_csv::save_results(std::string results_file_name, std::vector<std::
 }
 
 std::string Write_to_csv::to_string() {
-    return (graph_name + "," + path + "," + std::to_string(path_weight) + "," + std::to_string(time) + "," + std::to_string(number_of_repeats));
+    return (graph_name + "," + path + "," + std::to_string(path_weight) + "," + std::to_string(time) + "," +
+            std::to_string(number_of_repeats));
 }
 
 

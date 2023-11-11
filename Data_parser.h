@@ -8,10 +8,12 @@
 
 class Data_parser {
 public:
-    Data_parser(std::string  filename);
+    Data_parser(std::string filename);
+
     ~Data_parser();
 
     bool openFile();
+
     std::vector<std::vector<int>> readFile();
 
 private:
