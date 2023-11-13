@@ -17,8 +17,9 @@ public:
     std::vector<int> dp();
 
     int dp_recursion(int mask, int current_vertex);
-
+    void show_lowest_path();
     std::vector<int> get_path();
+    std::string get_path_string();
 
 private:
 
@@ -30,9 +31,11 @@ private:
 
     int IMAX = INT_MAX;
 
-    int visited_all;
+    int visited_all{};
 
     std::vector<std::vector<int>> dp_memory;
+    std::vector<int> best_route;
+    int lowest_path_cost{};
 
 };
 
