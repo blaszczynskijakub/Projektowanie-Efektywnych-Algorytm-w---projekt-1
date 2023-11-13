@@ -6,13 +6,6 @@
 
 using namespace std;
 
-// Function to copy temporary solution to
-// the final solution
-void BnB::copyTab(int current_path[]) {
-    for (int i = 0; i < cities; i++)
-        this->finalNodes[i] = current_path[i];
-    this->finalNodes[cities] = current_path[0];
-}
 
 // Function to find the minimum edge cost from the vertex i
 int BnB::firstMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
@@ -39,6 +32,14 @@ int BnB::secondMin(int matrix[MAX_CITIES][MAX_CITIES], int i) {
     return second;
 }
 
+// Function to copy temporary solution to
+// the final solution
+void BnB::copyTab(int current_path[]) {
+    for (int i = 0; i < cities; i++)
+        this->finalNodes[i] = current_path[i];
+    this->finalNodes[cities] = current_path[0];
+}
+
 
 void BnB::TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_weight,
                  int level, int curr_path[]) {
@@ -61,8 +62,7 @@ void BnB::TSPRec(int matrix[MAX_CITIES][MAX_CITIES], int curr_bound, int curr_we
 
     for (int i = 0; i < cities; i++) {
 
-        if (matrix[curr_path[level - 1]][i] != 0 &&
-            visited[i] == false) {
+        if (matrix[curr_path[level - 1]][i] != 0 && !visited[i]) {
             int temp = curr_bound;
             curr_weight += matrix[curr_path[level - 1]][i];
             if (level == 1)
@@ -106,9 +106,12 @@ void BnB::TSP() {
         curr_bound += (firstMin(matrix, i) +
                        secondMin(matrix, i));
 
-    // Rounding
-    curr_bound = (curr_bound & 1) ? curr_bound / 2 + 1 :
-                 curr_bound / 2;
+    // Rounding by parity
+    if (curr_bound & 1) {
+        curr_bound = curr_bound / 2 + 1;
+    } else {
+        curr_bound = curr_bound / 2;
+    }
 
 
     visited[0] = true;

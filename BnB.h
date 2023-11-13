@@ -1,6 +1,5 @@
 #ifndef BNB_H
 #define BNB_H
-
 const int MAX_CITIES = 20;
 
 class BnB {
