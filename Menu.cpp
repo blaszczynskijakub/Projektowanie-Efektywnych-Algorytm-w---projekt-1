@@ -1,8 +1,8 @@
 #include "Menu.h"
+#include "Dynamic_programming.h"
 #include "BnB.h"
 
 void Menu::show_menu() {
-    using namespace std;
     std::vector<std::vector<int>> init_vector;
     DataGenerator generator;
     Graph graph(init_vector);
@@ -11,16 +11,13 @@ void Menu::show_menu() {
     std::string choice_s;
 
     while (true) {
-        std::cout
-                << "Problem komiwojazera rozwiazywany metoda przegladu zupelnego, Bnb, DP.\nAutor: Jakub Blaszczynski #263966\n\n";
+        std::cout << "Problem komiwojazera rozwiazywany metoda B&B i DP.\nAutor: Jakub Blaszczynski #264458\n\n";
         std::cout << "0 - Wyjdz z programu\n";
         std::cout << "1 - Wczytaj macierz z pliku\n";
         std::cout << "2 - Wygeneruj macierz\n";
         std::cout << "3 - Wyswietl ostatnio wczytana z pliku lub wygenerowana macierz\n";
-        std::cout
-                << "4 - Uruchom przeglad zupleny dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
-        std::cout << "5 - Uruchom bnb dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
-
+        std::cout << "4 - Uruchom algorytm podzialu i ograniczen (B&B) dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
+        std::cout << "5 - Uruchom algorytm programowania dynamicznego (DP) dla ostatnio wczytanej lub wygenerowanej macierzy i wyswietl wyniki\n";
         std::cout << ">";
 
         std::cin >> choice_s;
@@ -41,7 +38,7 @@ void Menu::show_menu() {
 
                 break;
             case 2:
-                std::cout << "Podaj wielkosc macierzy (rozmiar MAX_CITIES)\n>";
+                std::cout << "Podaj wielkosc macierzy (rozmiar N)\n>";
                 std::cin >> choice_s;
                 while (!is_digit(choice_s)) {
                     std::cout << "Podany ciag znakow nie jest liczba!\nWpisz liczbe\n>";
@@ -53,46 +50,22 @@ void Menu::show_menu() {
 
                 graph.printGraph();
                 break;
-            case 4: {
-                if (!graph.getGraph().empty()) {
-                    cout << 1111;
-
-                    Brute_force bf(graph.getGraph());
-                    auto start = std::chrono::high_resolution_clock::now();
-
-                    bf.perform_brute_force();
-                    auto end = std::chrono::high_resolution_clock::now();
-                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-                    std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
-                    bf.show_lowest_path();
-
-                } else {
-                    cout << "BRAK ostatnio wczytanej lub wygenerowanej macierzy!" << endl;
-                }
-            }
-
+            case 4:
+            {
+                Dynamic_programming dp(graph.getGraph());
+                auto start = std::chrono::high_resolution_clock::now();
+                dp.dp();
+                auto end = std::chrono::high_resolution_clock::now();
+                auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                std::cout << "Czas wykonywania algorytmu: " << duration.count() << " mikrosekund" << "\n";
+                dp.show_lowest_path();
                 break;
-            case 5: {
-                if (!graph.getGraph().empty()) {
-
-
-                    BnB bnb(graph.getNumOfVertices(), graph.getGraph());
-                    auto start = std::chrono::high_resolution_clock::now();
-
-                    bnb.TSP();
-                    auto end = std::chrono::high_resolution_clock::now();
-                    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-                    std::cout << "Time taken by function: " << duration.count() << " microseconds" << "\n";
-
-                    bnb.getResults();
-
-
-                } else {
-                    cout << "BRAK ostatnio wczytanej lub wygenerowanej macierzy!" << endl;
-                }
             }
+            case 5:
+            {
 
 
+            }
                 break;
             default:
                 std::cout << "Program nie zawiera funkcji dla podanej liczby!\n";
@@ -104,7 +77,7 @@ void Menu::show_menu() {
 
 bool Menu::is_digit(std::string input) {
 
-    for (int i = 0; i < input.size(); i++) {
+    for (int i = 0; i<input.size(); i++) {
         if (isdigit(input[i]) == false) {
             return false;
         }
